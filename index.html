@@ -5,46 +5,65 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        .main{
+            margin: 5px;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
 </head>
 <body>
-    <h1>Calcular sua média</h1>
-    
-    <input type="text" id="nome" placeholder="Digite seu nome"><br>
+    <div class="main">
+    <h1>Calcular a média de 5 alunos</h1>
 
-    <select name="materias" id="materias">
-        <option value="lp">Lógica de Programação</option>
-        <option value="matematica">Matemática</option>
-        <option value="quimica">Química</option>
-    </select><br>
-    <input type="number" id="b1" placeholder="1º Bimestre"><br>
-    <input type="number" id="b2" placeholder="2º Bimestre"><br>
-    <input type="number" id="b3" placeholder="3º Bimestre"><br>
-
-    <button onclick="calcularMedia()">Calcular Média</button>
+    <button onclick="calcularMedia()">Calcular Médias</button>
     <div id="resultado"></div>
+    
+    </div>
 
     <script>
         function calcularMedia() {
-            let nome = document.getElementById("nome").value;
-            let materia = document.getElementById("materias").value;
-            let b1 = Number(document.getElementById("b1").value);
-            let b2 = Number(document.getElementById("b2").value);
-            let b3 = Number(document.getElementById("b3").value);
-            let resultado = document.getElementById("resultado");
+            const alunos = [];
+            const resultado = document.getElementById("resultado");
+            let materias = ['Lógica de Programação', 'Matemática', 'Química'];  // Materias exemplo
+            
+            // Coletar as informações para 5 alunos
+            for (let i = 1; i <= 5; i++) {
+                let nome = prompt(`Digite o nome do aluno ${i}:`);
+                let materia = materias[i % materias.length];  // Para alternar entre as matérias
+                let b1 = Number(prompt(`Digite a nota do 1º bimestre de ${nome}:`));
+                let b2 = Number(prompt(`Digite a nota do 2º bimestre de ${nome}:`));
+                let b3 = Number(prompt(`Digite a nota do 3º bimestre de ${nome}:`));
 
-            let media = (b1 + b2 + b3) / 3;
+                let media = (b1 + b2 + b3) / 3;
 
-            switch (true) {
-                case (media >= 6):
-                    resultado.innerHTML = `Parabéns ${nome}! Você foi aprovado na disciplina de ${materia}. Sua média é ${media.toFixed(1)}`;
-                    break;
-                case (media >= 4 && media < 6):
-                    resultado.innerHTML = `Você ficou de recuperação, ${nome}, na disciplina de ${materia}. Sua média é ${media.toFixed(1)}`;
-                    break;
-                case (media < 4):
-                    resultado.innerHTML = `Infelizmente ${nome}, você não foi aprovado na disciplina de ${materia}. Sua média é ${media.toFixed(1)}`;
-                    break;
+                let resultadoAluno = {
+                    nome: nome,
+                    materia: materia,
+                    media: media
+                };
+                alunos.push(resultadoAluno);
             }
+
+            // Exibir as médias
+            alunos.forEach(aluno => {
+                let status = '';
+
+                switch (true) {
+                    case (aluno.media >= 6):
+                        status = `Parabéns ${aluno.nome}! Você foi aprovado na disciplina de ${aluno.materia}. Sua média é ${aluno.media.toFixed(1)}`;
+                        break;
+                    case (aluno.media >= 4 && aluno.media < 6):
+                        status = `Você ficou de recuperação, ${aluno.nome}, na disciplina de ${aluno.materia}. Sua média é ${aluno.media.toFixed(1)}`;
+                        break;
+                    case (aluno.media < 4):
+                        status = `Infelizmente ${aluno.nome}, você não foi aprovado na disciplina de ${aluno.materia}. Sua média é ${aluno.media.toFixed(1)}`;
+                        break;
+                }
+                resultado.innerHTML += `<p>${status}</p>`;
+            });
         }
     </script>
 </body>
