@@ -7,42 +7,45 @@
     <title>Document</title>
 </head>
 <body>
-    <!--Criar um sistema que gerencie as notas dos alunos em diferentes diciplinas.
-    criar um array bidimensional que armazene as notas de 5 alunos em 3 diciplinas
-permitir que se escolha uma diciplina para calcular a média das notas dos alunos 
-usar switch case para mostrar o resultado da média em diferentes categorias : aprovado >=6 
-recuperação média entre 4 e 5.9
-reprovado média <4
-usar for para calcular  a média da diciplina escolhida 
-usaR WHILE para permitir que se escolha novamente uma diciplina -->
-<h1>Calcular sua média</h1>
-<input type="text" id="nome">digite seu nome <br>
+    <h1>Calcular sua média</h1>
+    
+    <input type="text" id="nome" placeholder="Digite seu nome"><br>
 
-<select name="materias" id="materias">
-    <option value="lp" id="lp">lógica de programação</option>
-    <option value="matematica" id="matematica">matemática</option>
-    <option value="quimica" id="quimica">quimica</option>
-</select><br>
-<input type="number" id="b1"> 1 bimestre</input><br>
-<input type="number" id="b2"> 2 bimestre</input><br>
-<input type="number" id="b3"> 3 bimestre</input><br>
+    <select name="materias" id="materias">
+        <option value="lp">Lógica de Programação</option>
+        <option value="matematica">Matemática</option>
+        <option value="quimica">Química</option>
+    </select><br>
+    <input type="number" id="b1" placeholder="1º Bimestre"><br>
+    <input type="number" id="b2" placeholder="2º Bimestre"><br>
+    <input type="number" id="b3" placeholder="3º Bimestre"><br>
 
-<button onclick="calcularMedia()">calcular média</button>
-<script>
-    let nome = document.getElementById("nome").value
-    let materia = document.getElementById("materias").value;
-    function calcularMedia() {
-        let b1 =  Number(document.getElementById("b1").value);
-        let b2 = Number(document.getElementById("b2").value);
-        let b3 = Number(document.getElementById("b3").value);
-        let media = (b1+b2)+b3;
-        var media1 = media / 3; 
+    <button onclick="calcularMedia()">Calcular Média</button>
+    <div id="resultado"></div>
 
-       var resultado = document.createElement("div") 
-       resultado.innerHTML `${nome}sua média em ${materia} é de  ${media1}`;
+    <script>
+        function calcularMedia() {
+            let nome = document.getElementById("nome").value;
+            let materia = document.getElementById("materias").value;
+            let b1 = Number(document.getElementById("b1").value);
+            let b2 = Number(document.getElementById("b2").value);
+            let b3 = Number(document.getElementById("b3").value);
+            let resultado = document.getElementById("resultado");
 
-       document.body.appendChild(resultado)
-    }
-</script>
+            let media = (b1 + b2 + b3) / 3;
+
+            switch (true) {
+                case (media >= 6):
+                    resultado.innerHTML = `Parabéns ${nome}! Você foi aprovado na disciplina de ${materia}. Sua média é ${media.toFixed(1)}`;
+                    break;
+                case (media >= 4 && media < 6):
+                    resultado.innerHTML = `Você ficou de recuperação, ${nome}, na disciplina de ${materia}. Sua média é ${media.toFixed(1)}`;
+                    break;
+                case (media < 4):
+                    resultado.innerHTML = `Infelizmente ${nome}, você não foi aprovado na disciplina de ${materia}. Sua média é ${media.toFixed(1)}`;
+                    break;
+            }
+        }
+    </script>
 </body>
 </html>
