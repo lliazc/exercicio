@@ -8,6 +8,7 @@
 
     <style>
         .main{
+            align-items: center;
             margin: 5px;
             display: flex;
             flex-direction: column;
@@ -17,6 +18,7 @@
 <body>
     <div class="main">
     <h1>Calcular a média de 5 alunos</h1>
+    <p>clique no botão abaixo para ver sua média</p>
 
     <button onclick="calcularMedia()">Calcular Médias</button>
     <div id="resultado"></div>
@@ -32,7 +34,25 @@
             // Coletar as informações para 5 alunos
             for (let i = 1; i <= 5; i++) {
                 let nome = prompt(`Digite o nome do aluno ${i}:`);
-                let materia = materias[i % materias.length];  // Para alternar entre as matérias
+                
+                // Permitir que o aluno escolha a disciplina
+                let materia = prompt(`Escolha a disciplina de ${nome} (1 - Lógica de Programação, 2 - Matemática, 3 - Química):`);
+                // Mapear a escolha para o nome da matéria
+                switch (materia) {
+                    case '1':
+                        materia = 'Lógica de Programação';
+                        break;
+                    case '2':
+                        materia = 'Matemática';
+                        break;
+                    case '3':
+                        materia = 'Química';
+                        break;
+                    default:
+                        materia = 'Disciplina inválida';
+                        break;
+                }
+
                 let b1 = Number(prompt(`Digite a nota do 1º bimestre de ${nome}:`));
                 let b2 = Number(prompt(`Digite a nota do 2º bimestre de ${nome}:`));
                 let b3 = Number(prompt(`Digite a nota do 3º bimestre de ${nome}:`));
